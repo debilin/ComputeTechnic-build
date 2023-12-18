@@ -1,0 +1,3 @@
+[submodule "ComputeTechnic"]
+	path = ComputeTechnic
+	url = git@github.com:debilin/ComputeTechnic.git
