@@ -13,5 +13,5 @@ docker run \
     --name $containerid \
     $imageid
 
-docker cp $containerid:ComputeTechnic/build/lego_technic_main ./dist
+docker cp $containerid:/ComputeTechnic/build/lego_vis_edges ./dist
 docker rm $containerid
