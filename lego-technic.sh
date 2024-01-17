@@ -1,12 +1,12 @@
 #! /bin/bash
 
 randstr=$(cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 8 | head -n 1)
-project=compute-technic
+project=lego-technic
 containerid=$project-build-$randstr
 imageid=$project-build-$(id -u)
 
 mkdir -p $PWD/output/vis_edges/
-docker run \
+podman run \
     --name $containerid \
     -w /ComputeTechnic/build \
     -v "$PWD/output:/ComputeTechnic/LEGO_Technic_data/1_debug" \
