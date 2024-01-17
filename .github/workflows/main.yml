@@ -20,10 +20,10 @@ jobs:
         #with:
         #  kind: unstable # `testing` by default
         #  qemu: true # `false` by default
-        run: podman version
-
+        
       - name: Build Debian package
         run: |
+          podman version
           bash build_deb.sh
 
       - name: Push to Gemfury
