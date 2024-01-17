@@ -1,4 +1,4 @@
-name: Docker Build And Push To Docker Hub
+name: Docker Build And Push
 
 on:
   push:
@@ -14,6 +14,15 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: true
+
+      - name: Build Debian package
+        run: |
+          bash build_deb.sh
+
+      - name: Push to Gemfury
+        run: |
+          debfile=$(find dist/*.deb)
+          curl -F package=@$debfile https://${{ secrets.GEMFURY_TOKEN }}@push.fury.io/debilin/
 
       - name: Build Docker Image
         id: buildAndPushImage
