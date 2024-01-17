@@ -17,7 +17,7 @@ jobs:
 
       - name: Build Debian package
         run: |
-          apt install -y podman
+          sudo apt-get install -y podman
           bash build_deb.sh
 
       - name: Push to Gemfury
