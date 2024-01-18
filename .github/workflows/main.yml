@@ -24,8 +24,7 @@ jobs:
       - run: podman version
 
       - name: Build Debian package
-        run: |
-          ./build.sh
+        run: ./build.sh
 
       - name: Push to Gemfury
         run: |
