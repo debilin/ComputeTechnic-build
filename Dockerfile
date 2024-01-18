@@ -40,8 +40,8 @@ ADD afterinstall.sh /afterinstall.sh
 RUN nightly=$(date +"%Y.%m.%d") && \
     fpm \
     -s dir -t deb \
-    -p lego-technic-$nightly-amd64.deb \
-    --name lego-technic \
+    -p lego-technic-nightly-$nightly-amd64.deb \
+    --name lego-technic-nightly \
     --license agpl3 \
     --version $nightly \
     --architecture amd64 \
