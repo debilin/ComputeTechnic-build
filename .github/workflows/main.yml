@@ -24,7 +24,11 @@ jobs:
       - run: podman version
 
       - name: Build Debian package
-        run: ./build.sh
+        uses: docker/build-push-action@v5
+        with:
+          push: false
+          target: builder
+          tags: debilin/lego-technic-deb:latest
 
       - name: Push to Gemfury
         run: |
