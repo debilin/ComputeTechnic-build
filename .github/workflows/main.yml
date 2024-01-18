@@ -2,7 +2,7 @@ name: Docker Build And Push
 
 on:
   schedule:
-    - cron: "30 01 * * *"
+    - cron: "0 0 * * *"
 
 jobs:
   check:
