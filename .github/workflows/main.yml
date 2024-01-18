@@ -22,10 +22,10 @@ jobs:
         #  qemu: true # `false` by default
         
       - run: podman version
-      
+
       - name: Build Debian package
         run: |
-          bash ${GITHUB_WORKSPACE}/build_deb.sh
+          ./build.sh
 
       - name: Push to Gemfury
         run: |
@@ -42,5 +42,6 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
           image_version: 'nightly'
           docker_file: '.'
+
       - name: Get pre step result output image_pull_url
         run: echo "The time was ${{ steps.buildAndPushImage.outputs.image_pull_url }}"
