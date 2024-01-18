@@ -15,25 +15,26 @@ jobs:
         with:
           submodules: true
 
-      - name: Install podman
-        uses: gacts/install-podman@v1
-        #with:
-        #  kind: unstable # `testing` by default
-        #  qemu: true # `false` by default
-        
-      - run: podman version
-
       - name: Build Debian package
         uses: docker/build-push-action@v5
         with:
+          load: true
           push: false
           target: builder
           context: .
-          tags: debilin/lego-technic-deb:latest
+          tags: lego-technic-deb:latest
+
+      - name: Extract to host
+        uses: shrink/actions-docker-extract@v3
+        id: extract
+        with:
+          image: lego-technic-deb:latest
+          path: /dist/.
+          destination: ./dist
 
       - name: Push to Gemfury
         run: |
-          debfile=$(find dist/*.deb)
+          debfile=$(find ./dist/*.deb)
           curl -F package=@$debfile https://${{ secrets.GEMFURY_TOKEN }}@push.fury.io/debilin/
 
       - name: Build Docker Image
