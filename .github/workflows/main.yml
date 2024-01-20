@@ -28,43 +28,43 @@ jobs:
     name: Build LEGO Technic
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          submodules: true
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: true
 
-      - name: Build Debian package
-        uses: docker/build-push-action@v5
-        with:
-          load: true
-          push: false
-          target: builder
-          context: .
-          tags: lego-technic-deb:latest
+    - name: Build Debian package
+      uses: docker/build-push-action@v5
+      with:
+        load: true
+        push: false
+        target: builder
+        context: .
+        tags: lego-technic-deb:latest
 
-      - name: Extract to host
-        uses: shrink/actions-docker-extract@v3
-        id: extract
-        with:
-          image: lego-technic-deb:latest
-          path: /dist/.
-          destination: ./dist
+    - name: Extract to host
+      uses: shrink/actions-docker-extract@v3
+      id: extract
+      with:
+        image: lego-technic-deb:latest
+        path: /dist/.
+        destination: ./dist
 
-      - name: Push to Gemfury
-        run: |
-          debfile=$(find ./dist/*.deb)
-          curl -F package=@$debfile https://${{ secrets.GEMFURY_TOKEN }}@push.fury.io/debilin/
+    - name: Push to Gemfury
+      run: |
+        debfile=$(find ./dist/*.deb)
+        curl -F package=@$debfile https://${{ secrets.GEMFURY_TOKEN }}@push.fury.io/debilin/
 
-      - name: Build Docker Image
-        id: buildAndPushImage
-        uses: MaximilianoBz/dockerhub-buildpush@v1.0
-        with:
-          registry_url: 'docker.io'
-          repository_name: 'lego-technic'
-          user_name: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
-          image_version: 'nightly'
-          docker_file: '.'
+    - name: Build Docker Image
+      id: buildAndPushImage
+      uses: MaximilianoBz/dockerhub-buildpush@v1.0
+      with:
+        registry_url: 'docker.io'
+        repository_name: 'lego-technic'
+        user_name: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_TOKEN }}
+        image_version: 'nightly'
+        docker_file: '.'
 
-      - name: Get pre step result output image_pull_url
-        run: echo "The time was ${{ steps.buildAndPushImage.outputs.image_pull_url }}"
+    - name: Get pre step result output image_pull_url
+      run: echo "The time was ${{ steps.buildAndPushImage.outputs.image_pull_url }}"
