@@ -24,8 +24,6 @@ jobs:
     needs: [check]
     if: needs.check.outputs.last_sha != github.sha
     secrets: inherit
-
-    name: Build LEGO Technic
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
