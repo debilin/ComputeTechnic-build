@@ -13,7 +13,7 @@ jobs:
       with:
         route: GET /repos/${{github.repository}}/actions/workflows/main.yml/runs?per_page=1&status=completed
       env:
-        GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - run: "echo Last daily build: ${{ fromJson(steps.check_last_run.outputs.data).workflow_runs[0].head_sha }}"
 
