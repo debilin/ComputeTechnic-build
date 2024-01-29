@@ -48,7 +48,7 @@ RUN nightly=$(date +"%Y.%m.%d") && \
     --depends bash --depends podman --depends ldraw-parts \
     --description "We introduce a method to automatically compute LEGO Technic models from user input sketches, optionally with motion annotations. The generated models resemble the input sketches with coherently-connected bricks and simple layouts, while respecting the intended symmetry and mechanical properties expressed in the inputs. This complex computational assembly problem involves an immense search space, and a much richer brick set and connection mechanisms than regular LEGO. To address it, we first comprehensively model the brick properties and connection mechanisms, then formulate the construction requirements into an objective function, accounting for faithfulness to input sketch, model simplicity, and structural integrity. Next, we model the problem as a sketch cover, where we iteratively refine a random initial layout to cover the input sketch, while guided by the objective. At last, we provide a working system to analyze the balance, stress, and assemblability of the generated model. To evaluate our method, we compared it with four baselines and professional designs by a LEGO expert, demonstrating the superiority of our automatic designs. Also, we recruited several users to try our system, employed it to create models of varying forms and complexities, and physically built most of them." \
     --url "" \
-    --maintainer "brainiac <0xD4F149A22CFc747fF1004C79917edc4C754Efa34@hashmail.dev>" \
+    --maintainer "debilin <croninlucio@gmail.com>" \
     --after-install /afterinstall.sh \
       /ComputeTechnic/build/lego_vis_edges=/usr/local/bin/lego_vis_edges \
       /lego-technic.sh=/usr/local/bin/lego-technic \
