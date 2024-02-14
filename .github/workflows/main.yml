@@ -53,6 +53,21 @@ jobs:
         debfile=$(find ./dist/*.deb)
         curl -F package=@$debfile https://${{ secrets.GEMFURY_TOKEN }}@push.fury.io/debilin/
 
+    - name: Download credential helper
+      id: download_release
+      uses: robinraju/release-downloader@v1.8
+      with:
+        repository: "docker/docker-credential-helpers"
+        latest: true
+        fileName: "docker-credential-pass-*.linux-amd64"
+
+    - name: Add credential helper
+      run: |
+        sudo apt-get install -y gnupg2 pass
+        mv ${{ fromJson(steps.download_release.outputs.downloaded_files)[0] }} /usr/local/bin
+        pass init docker-github-workflow
+        echo "{\n\t"credsStore": "pass"\n}" >> $HOME/.docker/config.json
+
     - name: Build Docker Image
       id: buildAndPushImage
       uses: MaximilianoBz/dockerhub-buildpush@v1.0
