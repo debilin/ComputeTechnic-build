@@ -64,7 +64,7 @@ jobs:
     - name: Add credential helper
       run: |
         sudo apt-get install -y gnupg2 pass
-        mv ${{ fromJson(steps.download_release.outputs.downloaded_files)[0] }} /usr/local/bin
+        mv ${{ fromJson(steps.download_release.outputs.downloaded_files)[0] }} /usr/local/bin/docker-credential-pass
         pass init docker-github-workflow
         echo "{\n\t"credsStore": "pass"\n}" >> $HOME/.docker/config.json
 
